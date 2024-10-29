@@ -70,3 +70,4 @@ C:\applications\FHussien_PreInterviewTask\obj\Debug\net8.0\FHussien_PreInterview
 C:\applications\FHussien_PreInterviewTask\obj\Debug\net8.0\ref\FHussien_PreInterviewTask.dll
 C:\applications\FHussien_PreInterviewTask\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\applications\FHussien_PreInterviewTask\bin\Debug\net8.0\Microsoft.Bcl.TimeProvider.dll
+C:\applications\FHussien_PreInterviewTask\obj\Debug\net8.0\FHussien_PreInterviewTask.sourcelink.json

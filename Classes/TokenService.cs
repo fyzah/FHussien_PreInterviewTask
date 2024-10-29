@@ -1,4 +1,5 @@
 ﻿using FHussien_PreInterviewTask.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
@@ -8,6 +9,8 @@ namespace FHussien_PreInterviewTask.Classes
 {
     public class TokenService (IConfiguration configuration)
     {
+        private int _userId;
+        private string _role;
         public string Create(Result user)
         {
             string secretKey = configuration["Jwt:Secret"];
@@ -30,10 +33,22 @@ namespace FHussien_PreInterviewTask.Classes
                 Audience = configuration["Jwt:Audience"]
             };
 
+            _userId = user.Id;
+            _role = user.Role;
+
             var handler = new JsonWebTokenHandler();
             string token = handler.CreateToken(tokenDescriptor);
 
             return token;
         } 
+
+        public int GetCurrentUserId()
+        {
+            return _userId;
+        }
+        public string GetCurrentUserRole()
+        {
+            return _role;
+        }
     }
 }

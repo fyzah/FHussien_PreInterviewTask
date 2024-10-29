@@ -77,10 +77,18 @@ namespace FHussien_PreInterviewTask.Classes
 
         public async Task<int> AddUserAsync(Result user)
         {
+            var currentUser = _tokenService.GetCurrentUserId();
+
             using var connection = CreateConnection();
+
+            var getCurrentUserQuery = @"SELECT * 
+                                      FROM [dbo].[Users] as u
+                                      WHERE Id = " + currentUser;
+            var getCurrentUser = await connection.QueryFirstOrDefaultAsync<User>(getCurrentUserQuery);
+
             var isUserExistingQuery = @"SELECT COUNT(*) 
                         FROM [dbo].[Users] as u
-                        WHERE UserName = '" + user.UserName + "' OR Email = '" + user.Email + "'";
+                        WHERE UserName = '" + user.UserName + "' OR Email = '" + user.Email + "' AND CompanyId = " + getCurrentUser?.CompanyId;
             var isUserExisting = await connection.QueryFirstOrDefaultAsync<int>(isUserExistingQuery);
 
             if (isUserExisting > 0)
@@ -95,13 +103,6 @@ namespace FHussien_PreInterviewTask.Classes
 
             var userInfoId = await connection.ExecuteScalarAsync<int>(insertUserInformationQuery);
 
-            // get the Company Id
-
-            var companySelectIdQuery = @"SELECT * FROM [dbo].[Companies] 
-                                        WHERE [Name] = '" + user.Company.Split("-")[0].Trim() + "'";
-
-            var companyId = (await connection.QueryFirstOrDefaultAsync<Company>(companySelectIdQuery)).Id;
-
             // get the Role Id 
             var roleSelectIdQuery = @"SELECT * FROM [dbo].[Roles]  
                                         WHERE [Name] = '" + user.Role + "'";
@@ -114,8 +115,8 @@ namespace FHussien_PreInterviewTask.Classes
             }
 
             var hashedPassword = generator.HashPassword(user.Password, out var salt);
-            var insertUserQuery = @"INSERT INTO [dbo].[Users] ([UserName] ,[Password] ,[Email] ,[RoleId] ,[CompanyId] ,[UserInformationId])
-                                    VALUES ('" + user.UserName + "' ,'" + hashedPassword + "' ,'" + user.Email + "' , " + role?.Id + " ," + companyId + ", " + userInfoId + ");SELECT CAST(SCOPE_IDENTITY() as int);";
+            var insertUserQuery = @"INSERT INTO [dbo].[Users] ([UserName] ,[Password], [Salt] ,[Email] ,[RoleId] ,[CompanyId] ,[UserInformationId])
+                                    VALUES ('" + user.UserName + "' ,'" + hashedPassword + "', '" + Convert.ToHexString(salt) + "' ,'" + user.Email + "' , " + role?.Id + " ," + getCurrentUser?.CompanyId + ", " + userInfoId + ");SELECT CAST(SCOPE_IDENTITY() as int);";
 
             var userId = await connection.ExecuteScalarAsync<int>(insertUserQuery);
             return userId;
@@ -123,10 +124,19 @@ namespace FHussien_PreInterviewTask.Classes
 
         public async Task<int> DeleteUserAsync(int id)
         {
+            //get Current User to determine what data to fetch. 
+            var currentUser = _tokenService.GetCurrentUserId();
+
             using var connection = CreateConnection();
+
+            var getCurrentUserQuery = @"SELECT * 
+                                      FROM [dbo].[Users] as u
+                                      WHERE Id = " + currentUser;
+            var getCurrentUser = await connection.QueryFirstOrDefaultAsync<User>(getCurrentUserQuery);
+
             var isUserExistingQuery = @"SELECT *
                         FROM [dbo].[Users] as u
-                        WHERE Id = " + id;
+                        WHERE Id = " + id + " AND CompanyId = " + getCurrentUser?.CompanyId;
             var isUserExisting = await connection.QueryFirstOrDefaultAsync<User>(isUserExistingQuery);
 
             if (isUserExisting == null)
@@ -147,12 +157,28 @@ namespace FHussien_PreInterviewTask.Classes
 
         public async Task<IEnumerable<Result>> GetAllUsersAsync()
         {
+            //get Current User to determine what data to fetch. 
+            var currentUser = _tokenService.GetCurrentUserId();
+            var currentUserRole = _tokenService.GetCurrentUserRole();
+
+            using var connection = CreateConnection();
+
+            var getCurrentUserQuery = @"SELECT * 
+                                      FROM [dbo].[Users] as u
+                                      WHERE Id = " + currentUser;
+            var getCurrentUser = await connection.QueryFirstOrDefaultAsync<User>(getCurrentUserQuery);
+
             var query = @"SELECT *
                       FROM [dbo].[Users] as u
                       INNER JOIN [dbo].[Roles] as r ON u.RoleId = r.Id
                       INNER JOIN [dbo].[Companies] as comp ON u.CompanyId = comp.Id
-                      INNER JOIN [dbo].[UserInformations] as uinfo ON u.UserInformationId = uinfo.Id";
-            using var connection = CreateConnection();
+                      INNER JOIN [dbo].[UserInformations] as uinfo ON u.UserInformationId = uinfo.Id
+                      WHERE u.CompanyId = " + getCurrentUser?.CompanyId;
+
+            if (currentUserRole == "User")
+            {
+                query += " AND r.[Name] = 'User'";
+            }
 
             var users = await connection.QueryAsync<User, Role, Company, UserInformation, Result>(query, (user, role, company, userInfo) =>
             {
@@ -172,19 +198,27 @@ namespace FHussien_PreInterviewTask.Classes
                 };
             }, splitOn: "Id,Id,Id");
 
-
             return users;
         }
 
         public async Task<Result?> GetUserByIdAsync(int id)
         {
+            //get Current User to determine what data to fetch. 
+            var currentUser = _tokenService.GetCurrentUserId();
+
+            using var connection = CreateConnection();
+
+            var getCurrentUserQuery = @"SELECT * 
+                                      FROM [dbo].[Users] as u
+                                      WHERE Id = " + currentUser;
+            var getCurrentUser = await connection.QueryFirstOrDefaultAsync<User>(getCurrentUserQuery);
+
             var query = @"SELECT *
                       FROM [dbo].[Users] as u
                       INNER JOIN [dbo].[Roles] as r ON u.RoleId = r.Id
                       INNER JOIN [dbo].[Companies] as comp ON u.CompanyId = comp.Id
                       INNER JOIN [dbo].[UserInformations] as uinfo ON u.UserInformationId = uinfo.Id
-                      WHERE u.[Id] = " + id;
-            using var connection = CreateConnection();
+                      WHERE u.[Id] = " + id + "AND u.CompanyId = " + getCurrentUser?.CompanyId;
 
             var user = await connection.QueryAsync<User, Role, Company, UserInformation, Result>(query, (user, role, company, userInfo) =>
             {
@@ -210,10 +244,19 @@ namespace FHussien_PreInterviewTask.Classes
 
         public async Task<int> UpdateUserAsync(Request user)
         {
+            //get Current User to determine what data to fetch. 
+            var currentUser = _tokenService.GetCurrentUserId();
+
             using var connection = CreateConnection();
+
+            var getCurrentUserQuery = @"SELECT * 
+                                      FROM [dbo].[Users] as u
+                                      WHERE Id = " + currentUser;
+            var getCurrentUser = await connection.QueryFirstOrDefaultAsync<User>(getCurrentUserQuery);
+
             var isUserExistingQuery = @"SELECT *
                                 FROM [dbo].[Users] as u
-                                WHERE Id = " + user.Id + " AND UserName = '" + user.UserName + "' AND Email = '" + user.Email + "'";
+                                WHERE Id = " + user.Id + " AND UserName = '" + user.UserName + "' AND Email = '" + user.Email + "' AND CompanyId = " + getCurrentUser?.CompanyId;
             var isUserExisting = await connection.QueryFirstOrDefaultAsync<User>(isUserExistingQuery);
 
             if (isUserExisting == null)
