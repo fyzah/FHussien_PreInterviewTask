@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\FHussien_PreInterviewTask.props" />
+</Project>

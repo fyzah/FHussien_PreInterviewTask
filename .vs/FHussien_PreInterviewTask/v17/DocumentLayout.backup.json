@@ -1,0 +1,156 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\applications\\FHussien_PreInterviewTask\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{02CD8822-D2D5-473F-9486-A729F22AD0EB}|FHussien_PreInterviewTask.csproj|c:\\applications\\fhussien_preinterviewtask\\classes\\tokenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{02CD8822-D2D5-473F-9486-A729F22AD0EB}|FHussien_PreInterviewTask.csproj|solutionrelative:classes\\tokenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02CD8822-D2D5-473F-9486-A729F22AD0EB}|FHussien_PreInterviewTask.csproj|c:\\applications\\fhussien_preinterviewtask\\classes\\datacontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{02CD8822-D2D5-473F-9486-A729F22AD0EB}|FHussien_PreInterviewTask.csproj|solutionrelative:classes\\datacontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02CD8822-D2D5-473F-9486-A729F22AD0EB}|FHussien_PreInterviewTask.csproj|c:\\applications\\fhussien_preinterviewtask\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{02CD8822-D2D5-473F-9486-A729F22AD0EB}|FHussien_PreInterviewTask.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02CD8822-D2D5-473F-9486-A729F22AD0EB}|FHussien_PreInterviewTask.csproj|c:\\applications\\fhussien_preinterviewtask\\classes\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{02CD8822-D2D5-473F-9486-A729F22AD0EB}|FHussien_PreInterviewTask.csproj|solutionrelative:classes\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02CD8822-D2D5-473F-9486-A729F22AD0EB}|FHussien_PreInterviewTask.csproj|c:\\applications\\fhussien_preinterviewtask\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{02CD8822-D2D5-473F-9486-A729F22AD0EB}|FHussien_PreInterviewTask.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02CD8822-D2D5-473F-9486-A729F22AD0EB}|FHussien_PreInterviewTask.csproj|c:\\applications\\fhussien_preinterviewtask\\models\\result.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{02CD8822-D2D5-473F-9486-A729F22AD0EB}|FHussien_PreInterviewTask.csproj|solutionrelative:models\\result.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02CD8822-D2D5-473F-9486-A729F22AD0EB}|FHussien_PreInterviewTask.csproj|c:\\applications\\fhussien_preinterviewtask\\helper\\servicecollectionextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{02CD8822-D2D5-473F-9486-A729F22AD0EB}|FHussien_PreInterviewTask.csproj|solutionrelative:helper\\servicecollectionextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02CD8822-D2D5-473F-9486-A729F22AD0EB}|FHussien_PreInterviewTask.csproj|c:\\applications\\fhussien_preinterviewtask\\helper\\hashgenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{02CD8822-D2D5-473F-9486-A729F22AD0EB}|FHussien_PreInterviewTask.csproj|solutionrelative:helper\\hashgenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 7,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Result.cs",
+              "DocumentMoniker": "C:\\applications\\FHussien_PreInterviewTask\\Models\\Result.cs",
+              "RelativeDocumentMoniker": "Models\\Result.cs",
+              "ToolTip": "C:\\applications\\FHussien_PreInterviewTask\\Models\\Result.cs",
+              "RelativeToolTip": "Models\\Result.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-29T13:26:24.859Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ServiceCollectionExtensions.cs",
+              "DocumentMoniker": "C:\\applications\\FHussien_PreInterviewTask\\Helper\\ServiceCollectionExtensions.cs",
+              "RelativeDocumentMoniker": "Helper\\ServiceCollectionExtensions.cs",
+              "ToolTip": "C:\\applications\\FHussien_PreInterviewTask\\Helper\\ServiceCollectionExtensions.cs",
+              "RelativeToolTip": "Helper\\ServiceCollectionExtensions.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAkwCMAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-29T13:04:25.007Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "UserRepository.cs",
+              "DocumentMoniker": "C:\\applications\\FHussien_PreInterviewTask\\Classes\\UserRepository.cs",
+              "RelativeDocumentMoniker": "Classes\\UserRepository.cs",
+              "ToolTip": "C:\\applications\\FHussien_PreInterviewTask\\Classes\\UserRepository.cs",
+              "RelativeToolTip": "Classes\\UserRepository.cs",
+              "ViewState": "AgIAACgAAAAAAAAAAAAIwEIAAAB1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-29T11:56:00.313Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\applications\\FHussien_PreInterviewTask\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "C:\\applications\\FHussien_PreInterviewTask\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-10-29T12:44:34.784Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\applications\\FHussien_PreInterviewTask\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\applications\\FHussien_PreInterviewTask\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAAYwGwAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-29T12:24:01.457Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "HashGenerator.cs",
+              "DocumentMoniker": "C:\\applications\\FHussien_PreInterviewTask\\Helper\\HashGenerator.cs",
+              "RelativeDocumentMoniker": "Helper\\HashGenerator.cs",
+              "ToolTip": "C:\\applications\\FHussien_PreInterviewTask\\Helper\\HashGenerator.cs",
+              "RelativeToolTip": "Helper\\HashGenerator.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAA3wBcAAABMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-29T12:30:27.249Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "DataContext.cs",
+              "DocumentMoniker": "C:\\applications\\FHussien_PreInterviewTask\\Classes\\DataContext.cs",
+              "RelativeDocumentMoniker": "Classes\\DataContext.cs",
+              "ToolTip": "C:\\applications\\FHussien_PreInterviewTask\\Classes\\DataContext.cs",
+              "RelativeToolTip": "Classes\\DataContext.cs",
+              "ViewState": "AgIAAH8AAAAAAAAAAAAiwJ4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-29T12:28:26.041Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "TokenService.cs",
+              "DocumentMoniker": "C:\\applications\\FHussien_PreInterviewTask\\Classes\\TokenService.cs",
+              "RelativeDocumentMoniker": "Classes\\TokenService.cs",
+              "ToolTip": "C:\\applications\\FHussien_PreInterviewTask\\Classes\\TokenService.cs",
+              "RelativeToolTip": "Classes\\TokenService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwBgAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-29T12:12:17.464Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
