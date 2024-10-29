@@ -256,7 +256,7 @@ namespace FHussien_PreInterviewTask.Classes
 
             var isUserExistingQuery = @"SELECT *
                                 FROM [dbo].[Users] as u
-                                WHERE Id = " + user.Id + " AND UserName = '" + user.UserName + "' AND Email = '" + user.Email + "' AND CompanyId = " + getCurrentUser?.CompanyId;
+                                WHERE Id = " + user.Id + " AND CompanyId = " + getCurrentUser?.CompanyId;
             var isUserExisting = await connection.QueryFirstOrDefaultAsync<User>(isUserExistingQuery);
 
             if (isUserExisting == null)
