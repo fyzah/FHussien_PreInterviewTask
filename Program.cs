@@ -2,9 +2,11 @@ using FHussien_PreInterviewTask.Classes;
 using FHussien_PreInterviewTask.Helper;
 using FHussien_PreInterviewTask.Interfaces;
 using FHussien_PreInterviewTask.Models;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using System.Threading.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,6 +43,26 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+builder.Services.AddRateLimiter(limiterOptions =>
+{
+    limiterOptions.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+    limiterOptions.AddPolicy("jwt", partitioner: httpContext => {
+        var accessToken = httpContext.GetTokenAsync("access_token").Result;
+
+        return !string.IsNullOrEmpty(accessToken) ?
+            RateLimitPartition.GetFixedWindowLimiter(accessToken, options => new FixedWindowRateLimiterOptions
+            {
+                PermitLimit = 10,
+                Window = TimeSpan.FromMinutes(1)
+            })
+            : RateLimitPartition.GetFixedWindowLimiter("Anon", options => new FixedWindowRateLimiterOptions
+            {
+                PermitLimit = 5,
+                Window = TimeSpan.FromMinutes(1)
+            });
+    });
+});
+
 var app = builder.Build();
 
 // ensure database and tables exist
@@ -50,6 +72,11 @@ var app = builder.Build();
     await context.Init();
 }
 
+app.UseHttpsRedirection();
+app.UseAuthentication();
+app.UseAuthorization();
+app.UseRateLimiter();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -57,9 +84,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
-
-app.MapGet("/users", async (IUserRepository repo) => await repo.GetAllUsersAsync()).RequireAuthorization();
+app.MapGet("/users", async (IUserRepository repo) => await repo.GetAllUsersAsync()).RequireRateLimiting("jwt").RequireAuthorization();
 app.MapGet("/users/{id}", async (int id, IUserRepository repo) => {
     try
     {
@@ -69,7 +94,7 @@ app.MapGet("/users/{id}", async (int id, IUserRepository repo) => {
     {
         return Results.NotFound("Failed: " + ex.Message);
     }
-}).RequireAuthorization("AdminPolicy"); 
+}).RequireRateLimiting("jwt").RequireAuthorization("AdminPolicy");
 app.MapPost("/users", async (Result user, IUserRepository repo) =>
 {
     try
@@ -82,7 +107,7 @@ app.MapPost("/users", async (Result user, IUserRepository repo) =>
         return Results.BadRequest(error: "Failed: " + ex.Message);
     }
 
-}).RequireAuthorization("AdminPolicy");
+}).RequireRateLimiting("jwt").RequireAuthorization("AdminPolicy");
 app.MapPut("/users/{id}", async (int id, Request user, IUserRepository repo) =>
 {
     try
@@ -95,7 +120,7 @@ app.MapPut("/users/{id}", async (int id, Request user, IUserRepository repo) =>
     {
         return Results.BadRequest(error: "Failed: " + ex.Message);
     }
-}).RequireAuthorization("AdminPolicy");
+}).RequireRateLimiting("jwt").RequireAuthorization("AdminPolicy");
 app.MapDelete("/users/{id}", async (int id, IUserRepository repo) =>
 {
     try
@@ -107,7 +132,7 @@ app.MapDelete("/users/{id}", async (int id, IUserRepository repo) =>
     {
         return Results.BadRequest(error: "Failed: User does not exist.");
     }
-}).RequireAuthorization("AdminPolicy");
+}).RequireRateLimiting("jwt").RequireAuthorization("AdminPolicy");
 
 app.MapPost("/login", async (LoginRequest request, IUserRepository repo) =>
 {
@@ -124,9 +149,7 @@ app.MapPost("/login", async (LoginRequest request, IUserRepository repo) =>
     {
         return Results.BadRequest(error: ex.Message);
     }
-});
+}).RequireRateLimiting("jwt");
 
-app.UseAuthentication();
-app.UseAuthorization(); 
 app.Run();
 
