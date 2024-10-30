@@ -3,8 +3,6 @@ using FHussien_PreInterviewTask.Helper;
 using FHussien_PreInterviewTask.Interfaces;
 using FHussien_PreInterviewTask.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -21,6 +19,7 @@ builder.Services.Configure<DbSettings>(builder.Configuration.GetSection("DbSetti
 // Add Dapper configuration
 builder.Services.AddSingleton<DataContext>();
 builder.Services.AddSingleton<TokenService>();
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 builder.Services.AddAuthorization(options =>

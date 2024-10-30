@@ -5,8 +5,8 @@ using Microsoft.Data.SqlClient;
 using Dapper;
 using System.Data;
 using Microsoft.Extensions.Options;
-using System.Text;
 using LoginRequest = FHussien_PreInterviewTask.Models.LoginRequest;
+using System.Security.Claims;
 
 namespace FHussien_PreInterviewTask.Classes
 {
@@ -16,9 +16,11 @@ namespace FHussien_PreInterviewTask.Classes
         private TokenService _tokenService;
         private DbSettings _dbSettings;
         private HashGenerator generator = new HashGenerator();
+        private readonly IHttpContextAccessor _contextAccessor;
 
-        public UserRepository(IOptions<DbSettings> dbSettings, TokenService tokenService)
+        public UserRepository(IOptions<DbSettings> dbSettings, IHttpContextAccessor httpContextAccessor, TokenService tokenService)
         {
+            _contextAccessor = httpContextAccessor; 
             _dbSettings = dbSettings.Value;
             _tokenService = tokenService;
             _connectionString = $"Server={_dbSettings.Server}; Database={_dbSettings.Database};{_dbSettings.Other};";
@@ -77,8 +79,8 @@ namespace FHussien_PreInterviewTask.Classes
 
         public async Task<int> AddUserAsync(Result user)
         {
-            var currentUser = _tokenService.GetCurrentUserId();
-
+            var currentUser = _contextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            
             using var connection = CreateConnection();
 
             var getCurrentUserQuery = @"SELECT * 
@@ -125,7 +127,7 @@ namespace FHussien_PreInterviewTask.Classes
         public async Task<int> DeleteUserAsync(int id)
         {
             //get Current User to determine what data to fetch. 
-            var currentUser = _tokenService.GetCurrentUserId();
+            var currentUser = _contextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             using var connection = CreateConnection();
 
@@ -158,8 +160,8 @@ namespace FHussien_PreInterviewTask.Classes
         public async Task<IEnumerable<Result>> GetAllUsersAsync()
         {
             //get Current User to determine what data to fetch. 
-            var currentUser = _tokenService.GetCurrentUserId();
-            var currentUserRole = _tokenService.GetCurrentUserRole();
+            var currentUser = _contextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var currentUserRole = _contextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.Role);
 
             using var connection = CreateConnection();
 
@@ -204,7 +206,7 @@ namespace FHussien_PreInterviewTask.Classes
         public async Task<Result?> GetUserByIdAsync(int id)
         {
             //get Current User to determine what data to fetch. 
-            var currentUser = _tokenService.GetCurrentUserId();
+            var currentUser = _contextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             using var connection = CreateConnection();
 
@@ -245,7 +247,7 @@ namespace FHussien_PreInterviewTask.Classes
         public async Task<int> UpdateUserAsync(Request user)
         {
             //get Current User to determine what data to fetch. 
-            var currentUser = _tokenService.GetCurrentUserId();
+            var currentUser = _contextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             using var connection = CreateConnection();
 
